@@ -17,7 +17,7 @@ Based on these three functions, there are three main applications that form the 
 
 ### The Web Core
 The `web_core` application contains the routes and logic for both the main landing page, as well as the project index page. `web_core` is meant to serve as the 'core' of the site, with all other applications serving as modules that add functionality around `web_core`. The reason that the project index page is also contained within `web_core` is due to the intended structure of the entire project:
-![IMAGE NOT FOUND](PlaceHolder)
+![IMAGE NOT FOUND](https://github.com/MatthewTe/autodidacticism_django_app/blob/master/resources/Django%20Application%20Diagram.png)
 
 The poorly designed diagram shows how the logic and views for each of the apps is self contained, except for the `Applications`. The index page that lists the hosted applications is contained within the `web_core` app, whereas each of the actual hosted applications are contained within their own Django Apps which the `web_core` hosted index page just routes to.
 
