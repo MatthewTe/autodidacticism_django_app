@@ -1,0 +1,128 @@
+{% extends 'core_layout.html' %}
+{% load static %}
+
+{% block title %} Applications {% endblock title %}
+
+{% block body %}
+<div class="jumbotron jumbotron-fluid" style="background-image: url({% static 'web_core/images/jumbotron_background.jpg' %});">
+
+  <div class="container">
+    <h1 class="display-4">Applications</h1>
+    <hr class="my-4">
+    <p class="text-justify lead">All available Applications are listed below in cards, with Apps being separated into categories based on their functions. Each Application Card contains:</p>
+    <ul>
+      <li><p class="text-justify lead">A link to a hosted version of the application, either integrated with the larger Autodidacticism App or a 3-rd party host if direct integration is not possible or realistic.</p></li>
+      <li><p class="text-justify lead">A link to the source code for the application on GitHub.</p></li>
+      <li><p class="text-justify lead">If the Application contains supporting documentation or additional resources the card will contain a link to documentation about the App hosted on the site.</p></li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="container">
+
+  <h1>Web Framework Applications</h1>
+  <hr style="border-color: #FFFFFF;">
+
+  <div class="row row-cols-1 row-cols-md-2">
+
+    <div class="col mb-4" id="autodidacticism_django_site">
+      <div class="card bg-dark">
+        <div class="card-header">
+          <img id="card_icon" src="{% static 'web_core/images/icons/python_icon.png' %}" alt="">
+          <img id="card_icon" src="{% static 'web_core/images/icons/django_icon.png' %}" alt="">
+          <img id="card_icon" src="{% static 'web_core/images/icons/bootstrap_icon.png' %}" alt="">
+        </div>
+        <img style="height: auto;" src="{% static 'web_core/images/jumbotron_background.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3 class="card-title">Autodidacticism Web Application</h3>
+          <hr style="border-color: black;">
+          <p class="card-text">The code for the entire Autodidacticism website. The site is built in python using the django framework and connects all other applications displayed on this page as well as other Educational Resources and Data APIs.</p>
+        </div>
+        <div class="btn-group" role="group">
+          <a href="https://github.com/MatthewTe/autodidacticism_django_app" class="btn btn-info btn-outline-dark">Source Code <img id="card_icon" src="{% static 'web_core/images/icons/github_icon.png' %}" alt=""></a>
+          <a href="#" class="btn btn-info btn-outline-dark">Documentation <img id="card_icon" src="{% static 'web_core/images/icons/documentation_icon.png' %}" alt=""></a>
+        </div>
+      </div>
+      </div>
+
+      <div class="col mb-4">
+        <div class="card bg-dark">
+          <div class="card-header">
+            <img id="card_icon" src="{% static 'web_core/images/icons/python_icon.png' %}" alt="">
+            <img id="card_icon" src="{% static 'web_core/images/icons/bootstrap_icon.png' %}" alt="">
+
+          </div>
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h3 class="card-title">Hydrodynamic Modelling Output Dashboard</h3>
+            <hr style="border-color: black;">
+            <p class="card-text">A PlaceHolder text block untill I figure out how to display data/information regarding the CDL Flask App.</p>
+          </div>
+        </div>
+        </div>
+
+    </div>
+
+
+    <h1>Finance Applications</h1>
+    <hr style="border-color: #FFFFFF;">
+
+    <h3>Lazy Prices Algorithm Data Pipeline:</h3>
+    <p class="text-justify">Lazy Prices refers to a research paper published by Lauren Cohen, Christopher Malloy and Quoc Nguyen that explores the relationship between the changes to the language and construction of a company’s financial reports and future financial performance. As a result of the findings described in the paper, many quantitative analysts incorporate data about a firm’s quarterly and annual reports into their trading strategies. The applications/packages below are all elements that are used to create an automated pipeline for the extraction and transformation of financial reporting data, as well as ingestion of said data into a trading algorithm back-testing application or similar project. More information on the Lazy Prices research paper and development of the Lazy Prices data pipeline can be found in the Resources section <a href="#">here</a>.</p>
+
+    <div class="row row-cols-1 row-cols-md-2">
+
+      <div class="col mb-4">
+        <div class="card bg-dark">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">10-K & 10-Q PDF Parser</h5>
+            <p class="card-text">A PlaceHolder for summary information on the PDF Parsing Package.</p>
+          </div>
+        </div>
+        </div>
+
+        <div class="col mb-4">
+          <div class="card bg-dark">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">SEC Financial Report Web Scraper</h5>
+              <p class="card-text">A PlaceHolder for summary information on the Web Scraping Library.</p>
+            </div>
+          </div>
+          </div>
+
+      </div>
+
+      <h1>Agent Based Modelling</h1>
+      <hr style="border-color: #FFFFFF;">
+
+      <div class="row row-cols-1 row-cols-md-2">
+
+        <div class="col mb-4">
+          <div class="card bg-dark">
+            <img src="..." class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Application PlaceHolder</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+          </div>
+          </div>
+
+          <div class="col mb-4">
+            <div class="card bg-dark">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Application PlaceHolder</h5>
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+              </div>
+            </div>
+            </div>
+
+        </div>
+
+
+</div>
+
+{% endblock body %}

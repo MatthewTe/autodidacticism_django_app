@@ -1,0 +1,39 @@
+{% extends 'core_layout.html'  %}
+{% load static %}
+
+{% block title %} Educational Resources {% endblock title %}
+
+{% block body %}
+
+<div class="jumbotron jumbotron-fluid" style="background-image: url({% static 'web_core/images/default_background.jpg' %});">
+  <div class="container">
+    <h1 class="display-4">Educational Resources</h1>
+    <hr class="my-4">
+    <p class="text-justify lead">The Categories of resources available on the site are listed below as Cards. Each “Category” contains two main sections:</p>
+    <ul>
+      <li style="color: white;"><p class="text-justify lead">The first being the “blog” section: A series of posts relevant to a certain topic indexed by date on a page. There is very little difference between this section and a conventional blog app.</p></li>
+      <li style="color: white;"><p class="text-justify lead">The second section essentially being a catalogue of other content such as books, pdfs and research papers associated with the category. This section is once again a conventional searchable catalog app.</p></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-2">
+
+    <div class="col mb-4" id="Finance_Resources_Tag">
+      <div class="card bg-dark">
+        <img style="height: auto;" src="{% static 'education_resources/images/finance_resources_img.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h3 class="card-title">Finance</h3>
+          <hr style="border-color: black;">
+          <p class="card-text">Resources that I have used/am currently using that involve Quantitative Finance, Stock Selection, Raw Data Extraction and Preprocessing of financially relevant information, Stochastic Calculus as well as other alternative means of investment such as Impact Based Investing, Alternative Investment Vehicles and the kitchen sink.</p>
+        </div>
+      </div>
+      </div>
+
+    </div>
+
+</div>
+
+
+{% endblock body %}

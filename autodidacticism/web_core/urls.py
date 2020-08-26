@@ -5,6 +5,8 @@ from . import views
 urlpatterns = [
 
     # Index Page Path:
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    # Application Index Page Path:
+    path('app_index', views.applications_index, name='applications_index')
 
 ]

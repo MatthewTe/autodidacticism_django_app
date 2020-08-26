@@ -1,5 +1,18 @@
 /* Base Styling for sudo "Dark-Mode": */
 body {background-color: #121212;}
 p {color: #FFFFFF;}
+h3 {color: #FFFFFF;}
 h5 {color: #FFFFFF;}
 h1 {color: #FFFFFF;}
+
+/* Custom styling for transparent card icons: */
+#card_icon {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+}
+
+/* Custom styling (mainly image resizing) of Card Images: */
+#card_image {
+
+}
