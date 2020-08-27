@@ -26,43 +26,50 @@
 
   <div class="row row-cols-1 row-cols-md-2">
 
-    <div class="col mb-4" id="autodidacticism_django_site">
-      <div class="card bg-dark">
-        <div class="card-header">
-          <img id="card_icon" src="{% static 'web_core/images/icons/python_icon.png' %}" alt="">
-          <img id="card_icon" src="{% static 'web_core/images/icons/django_icon.png' %}" alt="">
-          <img id="card_icon" src="{% static 'web_core/images/icons/bootstrap_icon.png' %}" alt="">
-        </div>
-        <img style="height: auto;" src="{% static 'web_core/images/jumbotron_background.jpg' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Autodidacticism Web Application</h3>
-          <hr style="border-color: black;">
-          <p class="card-text">The code for the entire Autodidacticism website. The site is built in python using the django framework and connects all other applications displayed on this page as well as other Educational Resources and Data APIs.</p>
-        </div>
-        <div class="btn-group" role="group">
-          <a href="https://github.com/MatthewTe/autodidacticism_django_app" class="btn btn-info btn-outline-dark">Source Code <img id="card_icon" src="{% static 'web_core/images/icons/github_icon.png' %}" alt=""></a>
-          <a href="#" class="btn btn-info btn-outline-dark">Documentation <img id="card_icon" src="{% static 'web_core/images/icons/documentation_icon.png' %}" alt=""></a>
-        </div>
-      </div>
-      </div>
+      {% comment %}
+      Itterating through the list of web framework application cards and dynamically generating each card from database:
+      {% endcomment %}
+      {% for card in application_cards %}
 
-      <div class="col mb-4">
-        <div class="card bg-dark">
-          <div class="card-header">
-            <img id="card_icon" src="{% static 'web_core/images/icons/python_icon.png' %}" alt="">
-            <img id="card_icon" src="{% static 'web_core/images/icons/bootstrap_icon.png' %}" alt="">
-
+        {% if card.card_category == 'web_applications' %}
+        <div class="col mb-4">
+          <div class="card bg-dark">
+            <div class="card-header">
+              {% for icon_img in card.serialized_icon_names %}
+                {# Building the icon url using |add: filter: #}
+                {% with "web_core/images/icons/"|add:icon_img as icon_img_url %}
+                <img id="card_icon" src="{% static icon_img_url %}" alt="">
+                {% endwith %}
+              {% endfor %}
+            </div>
+            {# Building the image url using |add: filter: #}
+            {% with "web_core/images/"|add:card.card_image as main_card_img %}
+            <img class="card-img-top" src="{% static main_card_img %}" alt="">
+            {% endwith %}
+            <div class="card-body">
+              <h3 class=card-title>{{ card.card_title }}</h3>
+              <hr style="border-color: black;">
+              <p class="card-text text-justify">{{card.card_description}}</p>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              {# Building both button icon image urls using |add: filter: #}
+              {% with "web_core/images/icons/"|add:card.button_a_icon as button_a_icon_url %}
+              <a class="btn btn-info btn-outline-dark" href="{{ card.button_a_href }}">
+                {{ card.button_a_text }} <img id='card_icon' src="{% static button_a_icon_url %}" alt="">
+              </a>
+              {% endwith %}
+              {% with "web_core/images/icons/"|add:card.button_b_icon as button_b_icon_url %}
+              <a class="btn btn-info btn-outline-dark" href="{{ card.button_b_href }}">
+                {{ card.button_b_text }} <img id='card_icon' src="{% static button_b_icon_url %}" alt="">
+              </a>
+              {% endwith %}
+            </div>
           </div>
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h3 class="card-title">Hydrodynamic Modelling Output Dashboard</h3>
-            <hr style="border-color: black;">
-            <p class="card-text">A PlaceHolder text block untill I figure out how to display data/information regarding the CDL Flask App.</p>
-          </div>
         </div>
-        </div>
+        {% endif %}
+      {% endfor %}
 
-    </div>
+  </div>
 
 
     <h1>Finance Applications</h1>

@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+# Importing database models:
+from .models import Applications_Index_Cards
+
 
 def index(request):
     """
@@ -28,8 +31,10 @@ def applications_index(request):
 
     The method renders the 'applications_index.html' web template which contains
     information about all the current applications available on the site as well
-    as routes to each applications. Once again this method contains little logic
-    as mostly static assets are being rendered.
+    as routes to each applications. It queries the database for a Query Set of
+    all 'Applications_Index_Cards' using the orm model. This data is then passed
+    into the 'applications_index.html' template and is used to dynamically create
+    application pages.
 
     Args:
         request (http request): The http request that is sent to the server from
@@ -40,4 +45,12 @@ def applications_index(request):
             context.
 
     """
-    return render(request, 'web_core/applications_index.html')
+    # Extracting QuerySet of all Applications_Index_Cards objects from db:
+    application_cards = Applications_Index_Cards.objects.all()
+
+    # Building Context Dict for template:
+    context = {
+        'application_cards' : application_cards
+    }
+
+    return render(request, 'web_core/applications_index.html', context=context)
