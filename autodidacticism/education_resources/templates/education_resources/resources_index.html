@@ -20,16 +20,37 @@
 <div class="container">
   <div class="row row-cols-1 row-cols-md-2">
 
-    <div class="col mb-4" id="Finance_Resources_Tag">
-      <div class="card bg-dark">
-        <img style="height: auto;" src="{% static 'education_resources/images/finance_resources_img.jpg' %}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h3 class="card-title">Finance</h3>
-          <hr style="border-color: black;">
-          <p class="card-text">Resources that I have used/am currently using that involve Quantitative Finance, Stock Selection, Raw Data Extraction and Preprocessing of financially relevant information, Stochastic Calculus as well as other alternative means of investment such as Impact Based Investing, Alternative Investment Vehicles and the kitchen sink.</p>
+    {% comment %}
+    Itterating through the list of educational resources cards and dynamically generating each card from database:
+    {% endcomment %}
+    {% for card in resource_cards %}
+      <div class="col mb-4">
+        <div class="card bg-dark">
+          {# Building the image url using |add: filter: #}
+          {% with "education_resources/images/"|add:card.card_image as main_card_img %}
+          <img class="card-img-top" src="{% static main_card_img %}" alt="">
+          {% endwith %}
+          <div class="card-body">
+            <h3 class=card-title>{{ card.card_title }}</h3>
+            <hr style="border-color: black;">
+            <p class="card-text text-justify">{{card.card_description}}</p>
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            {# Building both button icon image urls using |add: filter: #}
+            {% with "education_resources/images/icons/"|add:card.button_a_icon as button_a_icon_url %}
+            <a class="btn btn-info btn-outline-dark" href="{{ card.button_a_href }}">
+              {{ card.button_a_text }} <img id='card_icon' src="{% static button_a_icon_url %}" alt="">
+            </a>
+            {% endwith %}
+            {% with "education_resources/images/icons/"|add:card.button_b_icon as button_b_icon_url %}
+            <a class="btn btn-info btn-outline-dark" href="{{ card.button_b_href }}">
+              {{ card.button_b_text }} <img id='card_icon' src="{% static button_b_icon_url %}" alt="">
+            </a>
+            {% endwith %}
+          </div>
         </div>
       </div>
-      </div>
+    {% endfor %}
 
     </div>
 
