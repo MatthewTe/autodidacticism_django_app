@@ -4,16 +4,16 @@
 {% block title %} Applications {% endblock title %}
 
 {% block body %}
-<div class="jumbotron jumbotron-fluid" style="background-image: url({% static 'web_core/images/jumbotron_background.jpg' %});">
+<div class="jumbotron jumbotron-fluid" id="core_jumbotron_styling"">
 
   <div class="container">
     <h1 class="display-4">Applications</h1>
-    <hr class="my-4">
+    <hr class="my-4" style="background-color: white;">
     <p class="text-justify lead">All available Applications are listed below in cards, with Apps being separated into categories based on their functions. Each Application Card contains:</p>
     <ul>
-      <li><p class="text-justify lead">A link to a hosted version of the application, either integrated with the larger Autodidacticism App or a 3-rd party host if direct integration is not possible or realistic.</p></li>
-      <li><p class="text-justify lead">A link to the source code for the application on GitHub.</p></li>
-      <li><p class="text-justify lead">If the Application contains supporting documentation or additional resources the card will contain a link to documentation about the App hosted on the site.</p></li>
+      <li><p class="text-justify ">A link to a hosted version of the application, either integrated with the larger Autodidacticism App or a 3-rd party host if direct integration is not possible or realistic.</p></li>
+      <li><p class="text-justify ">A link to the source code for the application on GitHub.</p></li>
+      <li><p class="text-justify ">If the Application contains supporting documentation or additional resources the card will contain a link to documentation about the App hosted on the site.</p></li>
     </ul>
   </div>
 
@@ -33,13 +33,14 @@
 
         {% if card.card_category == 'web_applications' %}
         <div class="col mb-4">
-          <div class="card bg-dark">
+          <div class="card bg-dark-custom-card">
             <div class="card-header">
               {% for icon_img in card.serialized_icon_names %}
                 {# Building the icon url using |add: filter: #}
                 {% with "web_core/images/icons/"|add:icon_img as icon_img_url %}
                 <img id="card_icon" src="{% static icon_img_url %}" alt="">
-                {% endwith %}
+                {% endwith %}    <!-- Add Dynamic Routes to all of these -->
+
               {% endfor %}
             </div>
             {# Building the image url using |add: filter: #}
@@ -71,7 +72,6 @@
 
   </div>
 
-
     <h1>Finance Applications</h1>
     <hr style="border-color: #FFFFFF;">
 
@@ -81,7 +81,7 @@
     <div class="row row-cols-1 row-cols-md-2">
 
       <div class="col mb-4">
-        <div class="card bg-dark">
+        <div class="card bg-dark-custom-card">
           <img src="..." class="card-img-top" alt="...">
           <div class="card-body">
             <h5 class="card-title">10-K & 10-Q PDF Parser</h5>
@@ -91,7 +91,7 @@
         </div>
 
         <div class="col mb-4">
-          <div class="card bg-dark">
+          <div class="card bg-dark-custom-card">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">SEC Financial Report Web Scraper</h5>
@@ -108,7 +108,7 @@
       <div class="row row-cols-1 row-cols-md-2">
 
         <div class="col mb-4">
-          <div class="card bg-dark">
+          <div class="card bg-dark-custom-card">
             <img src="..." class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">Application PlaceHolder</h5>
@@ -118,7 +118,7 @@
           </div>
 
           <div class="col mb-4">
-            <div class="card bg-dark">
+            <div class="card bg-dark-custom-card">
               <img src="..." class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title">Application PlaceHolder</h5>

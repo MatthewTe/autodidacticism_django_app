@@ -1,0 +1,36 @@
+{% extends 'core_layout.html'  %}
+{% load static %}
+
+{% block head %}
+{# Linking the custom Article Index CSS sheet: #}
+<link rel="stylesheet" type="text/css" href="{% static 'education_resources/css/individual_article_styling.css' %}">
+{% endblock head %}
+
+{% block title %} {{article.title}} {% endblock title %}
+
+{% block body %}
+
+<div class="container">
+
+  <div class="row">
+
+    <div class="col">
+    </div>
+
+    <div class="col-8">
+      <h1 class="article_title">{{article.title}}</h1>
+      <h6 class="artilce_title_subelement" style="display: inline;">By: {{article.author}}</h6>
+      <h6 class="artilce_title_subelement" style="display: inline;float: right;">Last Updated on {{article.last_updated}}</h6>
+      <h6 class="artilce_title_subelement">{{article.created_date}}</h6>
+      <hr class="my-4" style="background-color: white;">
+      <p class="article_content">{{article.content_markdown|safe}}</p>
+    </div>
+
+    <div class="col">
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock body %}

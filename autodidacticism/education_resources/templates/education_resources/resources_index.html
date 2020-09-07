@@ -5,10 +5,10 @@
 
 {% block body %}
 
-<div class="jumbotron jumbotron-fluid" style="background-image: url({% static 'web_core/images/default_background.jpg' %});">
+<div class="jumbotron jumbotron-fluid" id="core_jumbotron_styling">
   <div class="container">
     <h1 class="display-4">Educational Resources</h1>
-    <hr class="my-4">
+    <hr class="my-4" style="background-color: white;">
     <p class="text-justify lead">The Categories of resources available on the site are listed below as Cards. Each “Category” contains two main sections:</p>
     <ul>
       <li style="color: white;"><p class="text-justify lead">The first being the “blog” section: A series of posts relevant to a certain topic indexed by date on a page. There is very little difference between this section and a conventional blog app.</p></li>
@@ -25,20 +25,20 @@
     {% endcomment %}
     {% for card in resource_cards %}
       <div class="col mb-4">
-        <div class="card bg-dark">
+        <div class="card bg-dark-custom-card">
           {# Building the image url using |add: filter: #}
           {% with "education_resources/images/"|add:card.card_image as main_card_img %}
           <img class="card-img-top" src="{% static main_card_img %}" alt="">
           {% endwith %}
           <div class="card-body">
-            <h3 class=card-title>{{ card.card_title }}</h3>
+            <h3 class=card-title>{{ card.card_title }} </h3>
             <hr style="border-color: black;">
             <p class="card-text text-justify">{{card.card_description}}</p>
           </div>
           <div class="btn-group" role="group" aria-label="Basic example">
             {# Building both button icon image urls using |add: filter: #}
             {% with "education_resources/images/icons/"|add:card.button_a_icon as button_a_icon_url %}
-            <a class="btn btn-info btn-outline-dark" href="{{ card.button_a_href }}">
+            <a class="btn btn-info btn-outline-dark" href="{% url 'resources_article_index_category_filtered' category=card.card_category %}">
               {{ card.button_a_text }} <img id='card_icon' src="{% static button_a_icon_url %}" alt="">
             </a>
             {% endwith %}
@@ -53,7 +53,6 @@
     {% endfor %}
 
     </div>
-
 </div>
 
 

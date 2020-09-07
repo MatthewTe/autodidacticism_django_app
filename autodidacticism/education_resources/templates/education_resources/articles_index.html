@@ -1,0 +1,66 @@
+{% extends 'core_layout.html'  %}
+{% load static %}
+
+{% block head %}
+{# Linking the custom Article Index CSS sheet: #}
+<link rel="stylesheet" type="text/css" href="{% static 'education_resources/css/article_index_styling.css' %}">
+{% endblock head %}
+
+
+{% block title %} Article Index {% endblock title %}
+
+{% block body %}
+  <div class="row">
+
+    {# Left-Justified Article Category Selector Card: #}
+    <div class="col">
+      <div class="card bg-dark-custom-article" style="margin-left: 20px;">
+        <div class="card-header" style="margin: auto;background-color: inherit;">
+          <h5 class="card-title">Article Categories</h5>
+        </div>
+
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action bg-dark-custom" style="text-align: center;border-color: #949494;" href="{% url 'resources_article_index' %}">
+            All
+          </a>
+          {% for article_category in article_categories %}
+          <a href="{{ article_category.card_category }}" style="text-align: center;border-color: #949494;" class="list-group-item list-group-item-action bg-dark-custom">
+            {{article_category.card_category}}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-7">
+
+      <form id="article_search">
+        <div class="form-group">
+          <input id="article_search_bar" class="form-control form-control-lg" type="text" name="q" action="{% url 'resources_article_index' %}" method="get" placeholder="Article Search">
+        </div>
+      </form>
+
+    {% for article in articles %}
+    <a href="{% url 'article_display' slug=article.slug %}" id="attribute_silent_link">
+      <div id="article_element_card" class="card bg-dark-custom-article">
+        <div class="card-body">
+          <div style="clear: both;">
+            <h6 class="card-subtitle mb-2 text-mutes" style="color: #808080;float: left;">Posted In {{ article.main_category }} on {{article.created_date}}</h6>
+            <h6 class="card-subtitle mb-2 text-mutes" style="color: #808080;float: right;">Last Updated {{article.last_updated}}</h6>
+          </div>
+          <hr>
+          <h1 class="card-title">{{ article.title }}</h1>
+          <h6 class="card-subtitle mb-2 text-mutes" style="color: #808080;"> By: {{ article.author }}</h6>
+          <hr>
+          <p class="card-text">{{article.content_summary|safe}}</p>
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+
+    </div>
+
+    <div class="col"></div>
+
+  </div>
+{% endblock body %}

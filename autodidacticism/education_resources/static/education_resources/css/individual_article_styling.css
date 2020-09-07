@@ -1,0 +1,16 @@
+/* Styling for H1 header tag title of the Article: */
+.article_title {
+  margin-top: 20px;
+
+}
+
+/* Styling for H6 tag displaying author and date of the Article: */
+.artilce_title_subelement {
+    margin-top: auto;
+    color: #7E7E7E;
+}
+
+/* Styling for p tag displaying the main content of the Article: */
+.article_content {
+  margin-top: 30px;
+}

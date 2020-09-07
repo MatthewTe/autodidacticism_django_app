@@ -19,7 +19,7 @@ class Applications_Index_Cards(models.Model):
         * An Icon
         * An href Link
     * Metadata describing the application type of the card ('finance', 'web_framework',
-    etc, etc.).
+    etc, etc.). As well as the sub-category of a card (used for inter-section sorting).
 
     Using Django Templates data is read from the database via this model and used
     to dynamically build card-decks. Dynamically building cards like this also
@@ -59,6 +59,10 @@ class Applications_Index_Cards(models.Model):
         card_category (models.CharField): The string that will be used by the view logic
             or the django template to assign the card to a particular section of
             the html template.
+
+        card_sub_category (models.CharField): The string that will be used by the
+            view logic or django template to sort application cards that have
+            already been sorted by catorgy into sub-categories.
 
     """
     # Card Header Content:
@@ -112,8 +116,22 @@ class Applications_Index_Cards(models.Model):
     card_category = models.CharField(
         max_length=50,
         help_text="The category of project that the card relates to. It is used by the templating engine to sort the card.",
-        verbose_name="Card Application Category")
+        verbose_name="Card Application Category",
+        choices=(
+            ('web_applications', 'web_applications'),
+            ('finance_applications', 'finance_applications'),
+            ('abm_applications', 'abm_applications')))
 
+    card_sub_category = models.CharField(
+        max_length = 55,
+        help_text = "The sub-category of an application that is used to sort application cards within a single category.",
+        verbose_name = "Card Sub-Category",
+        null = True,
+        default= None)
+
+    # Describing Model MetaData:
+    class Meta:
+        verbose_name_plural = "Application Index Cards"
 
     def serialized_icon_names(self):
         """Method that splits the serialized string of icon image file names into
@@ -132,3 +150,7 @@ class Applications_Index_Cards(models.Model):
 
         """
         return self.card_icons.split(':')
+
+    # __dunder methods:
+    def __str__(self):
+        return self.card_title

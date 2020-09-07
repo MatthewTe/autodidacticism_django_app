@@ -1,9 +1,16 @@
 /* Base Styling for sudo "Dark-Mode": */
-body {background-color: #121212;}
+body {background-color:  #000000;}
 p {color: #FFFFFF;}
 h3 {color: #FFFFFF;}
 h5 {color: #FFFFFF;}
 h1 {color: #FFFFFF;}
+
+/* Removing link highlighting for custom <a> tag: */
+#attribute_silent_link {
+    cursor:pointer;
+    color: #0060B6;
+    text-decoration: none;
+}
 
 /* Custom styling for transparent card icons: */
 #card_icon {
@@ -12,7 +19,28 @@ h1 {color: #FFFFFF;}
   margin-left: 10px;
 }
 
-/* Custom styling (mainly image resizing) of Card Images: */
-#card_image {
+/*  An image wrapper that makes images fit the screen */
+#background_image_full {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
 
+/* Custom Dark Mode Styling for Generic Elements: */
+.bg-dark-custom {
+  background-color: #121212;
+  color: white;
+}
+
+/* Custom Dark Mode Styling for Bootstrap Cards: */
+.bg-dark-custom-card {
+    background-color: #121212;
+    border: 1px;
+    border-style: solid;
+    border-color: #adadad;
+}
+
+/* The styling for website header jumbotrons: */
+#core_jumbotron_styling {
+  background-color: #121212;
 }

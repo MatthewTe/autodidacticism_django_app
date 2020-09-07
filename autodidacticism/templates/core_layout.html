@@ -9,13 +9,16 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'web_core/css/core_styling.css' %}">
+    {% block head %} {% endblock head %}
+
     <title>{% block title %} Insert Title {% endblock title %}</title>
 
   </head>
 
   <body>
+
     <!-- Universial NavBar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
       <a href="{% url 'index' %}" class="navbar-brand">Autodidacticism</a>
 
       <div class="collapse navbar-collapse">
@@ -24,11 +27,23 @@
             <a href="{% url 'applications_index' %}" class="nav-link">Applications</a>
           </li>
           <li class="nav-item">
-            <a href="{% url 'resources_index' %}" class="nav-link">Resources</a>
+            <div class="dropdown">
+              <a class="nav-link" data-toggle="dropdown">Resources</a>
+              <div class="dropdown-menu bg-dark">
+                <a class="dropdown-item bg-dark nav-link" href="{% url 'resources_index' %}">Resources Index</a>
+                <a class="dropdown-item bg-dark nav-link" href="{% url 'resources_article_index'%}">Articles Index</a>
+                <a class="dropdown-item bg-dark nav-link" href="#">Catalogue Index</a>
+              </div>
+            </div>
           </li>
           <li class="nav-item">
             <a href="{% url 'data_api_index' %}" class="nav-link">Data APIs</a>
           </li>
+          {% if user.is_admin or user.is_superuser %}
+          <li class="nav-item">
+            <a href="{% url 'admin:index' %}" class="nav-link">Admin</a>
+          </li>
+          {% endif %}
         </ul>
 
       </div>

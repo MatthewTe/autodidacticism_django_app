@@ -1,0 +1,20 @@
+/* Base Styling for sudo "Dark-Mode": */
+body {background-color: #121212;}
+p {color: #FFFFFF;}
+h3 {color: #FFFFFF;}
+h5 {color: #FFFFFF;}
+h1 {color: #FFFFFF;}
+
+/* Custom styling for transparent card icons: */
+#card_icon {
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
+}
+
+/*  An image wrapper that makes images fit the screen */
+#background_image_full {
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}

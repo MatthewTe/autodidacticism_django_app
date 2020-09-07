@@ -1,0 +1,16 @@
+/* Custom Styling for Article Index Page Search Bar */
+#article_search_bar {
+
+  margin-top: 20px;
+  background-color: #0F0F0F;
+  color: white;
+
+}
+
+/* Custom Styling for each individual Article Card Element */
+.bg-dark-custom-article {
+    margin-top: 20px;
+    background-color: #0F0F0F;
+    border-style: ridge;
+    border-color: #adadad;
+}

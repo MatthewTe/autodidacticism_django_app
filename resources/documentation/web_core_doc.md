@@ -1,4 +1,4 @@
-### The Web Core
+# The Web Core
 The `web_core` application contains the routes and logic for both the main landing page, as well as the project index page. `web_core` is meant to serve as the 'core' of the site, with all other applications serving as modules that add functionality around `web_core`. The reason that the project index page is also contained within `web_core` is due to the intended structure of the entire project:
 
 ![IMAGE NOT FOUND](https://github.com/MatthewTe/autodidacticism_django_app/blob/master/resources/images/Django%20Application%20Diagram.png)
@@ -7,12 +7,12 @@ The poorly designed diagram shows how the logic and views for each of the apps i
 
 The other two main functions of the Django project `education_resources` and `data_api` all contain their own internal routes, index pages and logic in traditional Django fashion.
 
-#### Web Core Routes
+## Web Core Routes:
 
-##### `index`
+### `index`
 The index route is the homepage of the site. As this homepage is fairly basic the view just renders a static html file. There is no additional logic to the `index` view.
 
-##### `applications_index`
+### `applications_index`
 This is the page that lists the applications available on the site. Each application is displayed on the front-end as a bootstrap card, as part of a card deck with two columns. The applications are sorted by category on the index page and they are **dynamically generated**. Data for each application card is stored in the back-end through the web_core orm model `Applications_Index_Cards`. When the `applications_index` view is called the database is queried for all Application Index Cards. The resulting QuerySet is then passed into the `applications_index.html` template where it is iterated over and used to build bootstrap cards via logic in the templating engine.
 
 **Example of dynamically generating BootStrap Cards in the `Web Applications` Section of the Applications Index Page:

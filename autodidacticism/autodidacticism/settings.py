@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Adding MarkdownX Application
+    'markdownx',
+
     # Base Webpage functionality through 'web_core':
     'web_core',
     # Posts and Educational Resources functionality through 'education_resources':
@@ -125,7 +128,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "assets")
 # Adding the global static directory to the app:
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
