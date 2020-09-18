@@ -1,0 +1,6 @@
+/* Adding Custom image styling for the bootstrap top card image: */
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}

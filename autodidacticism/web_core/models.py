@@ -120,7 +120,8 @@ class Applications_Index_Cards(models.Model):
         choices=(
             ('web_applications', 'web_applications'),
             ('finance_applications', 'finance_applications'),
-            ('abm_applications', 'abm_applications')))
+            ('abm_applications', 'abm_applications'),
+            ('hydrodynamic_modeling', 'hydrodynamic_modeling')))
 
     card_sub_category = models.CharField(
         max_length = 55,

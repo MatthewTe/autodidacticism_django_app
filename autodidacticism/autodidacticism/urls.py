@@ -8,10 +8,18 @@ from django.conf import settings
 urlpatterns = [
 
     # Configuration urls:
+    # -------------------
+    # Configuring the urlpath to serve static files in development:
+    *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
+
     # Adding MarkdownX application routes:
     url(r'^markdownx/', include('markdownx.urls')),
 
+    # Admin autodocs application routes:
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
+
     # Website Url Routes:
+    # -------------------
     # Default Admin Implementation:
     path('admin/', admin.site.urls),
 

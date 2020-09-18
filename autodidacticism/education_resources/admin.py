@@ -2,12 +2,24 @@ from django.contrib import admin
 from markdownx.admin import MarkdownxModelAdmin
 
 # Importing App models to add to admin dashboard:
-from .models import Resources_Index_Card, Article
+from .models import Resources_Index_Card, Article, CatalogueElement
 
-# Regestering the Education Resource Card Model:
-admin.site.register(Resources_Index_Card)
+# Regestering the Education Resource Card with custom Admin Model:
+@admin.register(Resources_Index_Card)
+class Resources_Index_Card_Admin(admin.ModelAdmin):
+    """A custom admin model for the Resources_Index_Card admin.
 
-# Regesting the Article Data Model with custom Admin Model:
+    The model adds custom display fields to the admin dashboard for the Resources_Index_Card
+    database model.
+
+    Attributes:
+        list_display (tuple): A tuple containing the model fields that are displayed
+            on the Admin index page for the Resources_Index_Card model.
+
+    """
+    list_display = ('card_title', 'card_category')
+
+# Regestering the Article Data Model with custom Admin Model:
 @admin.register(Article)
 class ArticleAdmin(MarkdownxModelAdmin):
     """A custom Admin Model for the Article Data Model.
@@ -49,3 +61,18 @@ class ArticleAdmin(MarkdownxModelAdmin):
 
     # Allowing the title field to be the main searchable field in the Admin Index:
     search_fields = ('title',)
+
+# Regestering the CatalogueElement Data Model with custom Admin Model:
+@admin.register(CatalogueElement)
+class CatalogueElementAdmin(admin.ModelAdmin):
+    """A custom admin model for the CatalogueElement database model.
+
+    The model adds custom display fields to the admin dashboard for the CatalogueElement
+    database model.
+
+    Attributes:
+        list_display (tuple): A tuple containing the model fields that are displayed
+            on the Admin index page for the CatalogueElement model.
+
+    """
+    list_display = ('title', 'category', 'source', 'file')

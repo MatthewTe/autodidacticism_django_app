@@ -32,7 +32,7 @@
               <div class="dropdown-menu bg-dark">
                 <a class="dropdown-item bg-dark nav-link" href="{% url 'resources_index' %}">Resources Index</a>
                 <a class="dropdown-item bg-dark nav-link" href="{% url 'resources_article_index'%}">Articles Index</a>
-                <a class="dropdown-item bg-dark nav-link" href="#">Catalogue Index</a>
+                <a class="dropdown-item bg-dark nav-link" href="{% url 'catalogue_index' %}">Catalogue Index</a>
               </div>
             </div>
           </li>
@@ -49,8 +49,8 @@
       </div>
     </nav>
 
-    {% block body %}
-    {% endblock body %}
+    {% block body %}{% endblock body %}
+    {% block javascript %}{% endblock javascript %}
   </body>
 
 </html>

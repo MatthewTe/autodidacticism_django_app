@@ -1,0 +1,23 @@
+/* Custom Styling for Educational Resources Catalogue Index Page Search Bar */
+#catalogue_search_bar {
+
+  margin-top: 20px;
+  background-color: #0F0F0F;
+  color: white;
+
+}
+
+/* Adding Custom image styling for the bootstrap top card image: */
+.card-img-top {
+  width: 100%;
+  height: 15vw;
+  object-fit: cover;
+}
+
+/* Custom Styling for each individual Article Card Element */
+.bg-dark-custom-element {
+    margin-top: 20px;
+    background-color: #0F0F0F;
+    border-style: ridge;
+    border-color: #adadad;
+}

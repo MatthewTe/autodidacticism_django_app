@@ -1,9 +1,14 @@
 /* Base Styling for sudo "Dark-Mode": */
-body {background-color:  #000000;}
+body {
+  background-color:  #000000;
+  padding-top: 60px;
+}
 p {color: #FFFFFF;}
 h3 {color: #FFFFFF;}
 h5 {color: #FFFFFF;}
 h1 {color: #FFFFFF;}
+h2 {color: #FFFFFF;}
+
 
 /* Removing link highlighting for custom <a> tag: */
 #attribute_silent_link {

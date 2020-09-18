@@ -32,7 +32,7 @@
           {% endwith %}
           <div class="card-body">
             <h3 class=card-title>{{ card.card_title }} </h3>
-            <hr style="border-color: black;">
+            <hr style="background-color: white;">
             <p class="card-text text-justify">{{card.card_description}}</p>
           </div>
           <div class="btn-group" role="group" aria-label="Basic example">
@@ -43,7 +43,7 @@
             </a>
             {% endwith %}
             {% with "education_resources/images/icons/"|add:card.button_b_icon as button_b_icon_url %}
-            <a class="btn btn-info btn-outline-dark" href="{{ card.button_b_href }}">
+            <a class="btn btn-info btn-outline-dark" href="{% url 'resources_catalogue_index_category_filtered' category=card.card_category %}">
               {{ card.button_b_text }} <img id='card_icon' src="{% static button_b_icon_url %}" alt="">
             </a>
             {% endwith %}

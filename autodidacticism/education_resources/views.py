@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.db.models import Q
 
 # Importing Database Models to be used in views:
-from .models import Resources_Index_Card, Article
+from .models import Resources_Index_Card, Article, CatalogueElement
 
 # Importing 3rd party packages:
 from functools import reduce
@@ -170,6 +170,9 @@ def resources_article_display(request, slug):
     article is passed into the template.
 
     Args:
+        request (http request): The http request that is sent to the server from
+            the client.
+
         slug (str): The slug parameter that is passed into the method from the url
             path. It is used to query the specific Article data model instance.
 
@@ -187,3 +190,78 @@ def resources_article_display(request, slug):
     }
 
     return render(request, 'education_resources/individual_article.html', context=context)
+
+def catalogue_index(request, category='all'):
+    """
+    A method that renders the 'catalogue_index.html' template, displaying the
+    'home page' for the educational resources catalogue.
+
+    The method renders the 'catalogue_index.html' file along with the content
+    extracted from the CatalogueElement database model. The type and amount of data
+    extracted from the database using said db model is determined by the search
+    parameters passed through the request url.
+
+    Much like the 'resources_article_index' method. The arguments that are passed
+    through the url are used to form the django db query filters that are used to
+    refine the search results and by extension, the catalogue elements that are
+    displayed on the index page. With respect to searching and category selection
+    this method operates much like the 'resources_article_index()' method.
+
+    References:
+        * https://docs.djangoproject.com/en/3.1/topics/files/
+        * https://pspdfkit.com/blog/2018/render-pdfs-in-the-browser-with-pdf-js/
+        * https://pspdfkit.com/blog/2018/render-pdfs-in-the-browser-with-pdf-js/
+        * https://mozilla.github.io/pdf.js/getting_started/
+        * https://stackoverflow.com/questions/27074968/django-media-root-and-media-url-templates
+        * https://stackoverflow.com/questions/50274289/adding-static-to-urlpatterns-only-work-by-appending-to-the-list
+
+    Args:
+        request (http request): The http request that is sent to the server from
+            the client.
+
+        category (str): The category used to filter the type of elements displayed.
+            If no category is provided then default value of 'all' is provided
+            and no category filter is applied to elements.
+
+    Returns:
+        django.shortcuts.render: The django template rendered as html with full
+            context.
+
+    """
+    # Creating the full QuerySet for the Resources_Index_Cards and CatalogueElements:
+    category_cards = Resources_Index_Card.objects.all()
+    element_cards = CatalogueElement.objects.all()
+
+    # Parsing Potential Url Search Query:
+
+    # If a category parameter is passed, filtering the QuerySet based on category param:
+    if category != 'all' and category.strip():
+
+        element_cards = element_cards.filter(
+            category__card_category=category
+        )
+
+    # Filtering the query search parameter to extract q query param:
+    if ('q' in request.GET) and request.GET['q'].strip():
+
+        # Declaring query string:
+        query_string = request.GET['q']
+
+        # Splitting the query string into a list of queries via white space:
+        query_lst = [query for query in query_string.split(" ")]
+
+        # Using the Complex Lookup object Q to query element cards based on queries list:
+        element_cards = element_cards.filter(
+            # Using reduce to match each element of the queries_lst with Article fields:
+            reduce(operator.and_, (Q(title__contains=query) for query in query_lst))
+            )
+
+
+
+    # Building the context to be passed into the template:
+    context = {
+        'catalogue_categories' : category_cards,
+        'element_cards' : element_cards
+    }
+
+    return render(request, 'education_resources/catalogue_index.html', context=context)

@@ -1,0 +1,77 @@
+{% extends 'core_layout.html' %}
+{% load static %}
+
+{% block title %} Resources Catalogue {% endblock title %}
+
+{% block head %}
+{# Linking the custom Article Index CSS sheet: #}
+<link rel="stylesheet" type="text/css" href="{% static 'education_resources/css/catalogue_index_styling.css' %}">
+{% endblock head %}
+
+{% block body %}
+
+<div class="row">
+
+  <div class="col">
+
+    {# Left-Justified Catalogue Category Selector Card: #}
+    <div class="col">
+      <div class="card bg-dark-custom-element" style="margin-left: 20px;">
+        <div class="card-header" style="margin: auto;background-color: inherit;">
+          <h5 class="card-title">Catalogue Categories</h5>
+        </div>
+
+        <div class="list-group">
+          <a class="list-group-item list-group-item-action bg-dark-custom" style="text-align: center;border-color: #949494;" href="{% url 'catalogue_index' %}">
+            All
+          </a>
+          {% for catalogue_catalogue in catalogue_categories %}
+          <a href="{{ catalogue_catalogue.card_category }}" style="text-align: center;border-color: #949494;" class="list-group-item list-group-item-action bg-dark-custom">
+            {{catalogue_catalogue.card_category}}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-7">
+
+    <form id="catalogue_search">
+      <div class="form-group">
+        <input id="catalogue_search_bar" class="form-control form-control-lg" type="text" name="q" action="{% url 'catalogue_index' %}" method="get" placeholder="Catalogue Search">
+      </div>
+    </form>
+
+    <div class="row-cols-1 row-cols-md-3">
+
+      {% for element in element_cards %}
+        <div class="card bg-dark-custom-element">
+          <a href="{{ element.file.url }}" target="_blank" id="attribute_silent_link">
+          <div class="card-header">
+            <h3 class="card-title" style="text-align:center;">{{ element.title }}</h3>
+            <h6 class="card-subtitle mb-2 text-mutes" style="color: #808080;"> By: {{ element.source }}</h6>
+          </div>
+          {# Building the img url using |add: filter: #}
+          {% with "education_resources/images/catalogue_thumbnails/"|add:element.card_image as element_img %}
+          <img class="card-img-top" src="{% static element_img %}" alt="">
+          {% endwith %}
+          <div class="card-body">
+            <p class="card-text text-justify">{{element.description}}</p>
+          </div>
+        </a>
+        </div>
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+  <div class="col">
+
+  </div>
+
+</div>
+
+{% endblock body %}

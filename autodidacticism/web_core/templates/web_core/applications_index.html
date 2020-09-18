@@ -1,6 +1,10 @@
 {% extends 'core_layout.html' %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'web_core/css/application_index.css' %}">
+{% endblock head %}
+
 {% block title %} Applications {% endblock title %}
 
 {% block body %}
@@ -9,12 +13,7 @@
   <div class="container">
     <h1 class="display-4">Applications</h1>
     <hr class="my-4" style="background-color: white;">
-    <p class="text-justify lead">All available Applications are listed below in cards, with Apps being separated into categories based on their functions. Each Application Card contains:</p>
-    <ul>
-      <li><p class="text-justify ">A link to a hosted version of the application, either integrated with the larger Autodidacticism App or a 3-rd party host if direct integration is not possible or realistic.</p></li>
-      <li><p class="text-justify ">A link to the source code for the application on GitHub.</p></li>
-      <li><p class="text-justify ">If the Application contains supporting documentation or additional resources the card will contain a link to documentation about the App hosted on the site.</p></li>
-    </ul>
+    <p class="text-justify lead">All available Applications are listed below in cards, with Apps being separated into categories based on their functions.</p>
   </div>
 
 </div>
@@ -32,7 +31,7 @@
       {% for card in application_cards %}
 
         {% if card.card_category == 'web_applications' %}
-        <div class="col mb-4">
+        <div class="col mb-4 d-flex">
           <div class="card bg-dark-custom-card">
             <div class="card-header">
               {% for icon_img in card.serialized_icon_names %}
@@ -71,6 +70,62 @@
       {% endfor %}
 
   </div>
+
+    <h1>Hydrodynamic Modelling</h1>
+    <hr style="border-color: #FFFFFF;">
+    <p class="text-justify">
+      Hydrodynamic modelling is the use of computational models to simulate currents, water levels, salinity etc. <a href="https://www.dhigroup.com/">DHI Water & Environment</a> provides complex modeling software in the form of MIKE 21 and MIKE 3. These data models perform calculations based on boundary conditions and GIS mesh data. Data output from MIKE HD models is output in the <a href="http://docs.mikepoweredbydhi.com/core_libraries/dfs/dfs-file-system/">DFS (Data File System) format</a>. This Binary data file format provides unique challenges when creating in-house data pipelines.
+    </p>
+
+    <h3>Hydrodynamic Model Data File System Data Pipelines</h3>
+    <p class="text-justify">
+      Several projects for clients required data generated from the Hydrodynamic models to be imported into various other applications such as a web data dashboard or external database. This required several creative in-house workarounds due to the unique nature of the DFS file format and its interaction with other applications and operating systems. The goals of creating a more permanent solution to transferring data between processes lead to the dfs data pipeline library. Most of the library is proprietary as it deals with client and organization specific processes/pipelines however some of the more generalized and simplistic elements (such as the Mail Socket API) are publicly available. 
+    </p>
+
+    <div class="row row-cols-1 row-cols-md-2">
+      {% for card in application_cards %}
+
+        {% if card.card_category == "hydrodynamic_modeling" and card.card_sub_category == "dfs_data_pipeline_api" %}
+        <div class="col mb-4 d-flex">
+          <div class="card bg-dark-custom-card">
+            <div class="card-header">
+              {% for icon_img in card.serialized_icon_names %}
+                {# Building the icon url using |add: filter: #}
+                {% with "web_core/images/icons/"|add:icon_img as icon_img_url %}
+                <img id="card_icon" src="{% static icon_img_url %}" alt="">
+                {% endwith %}    <!-- Add Dynamic Routes to all of these -->
+
+              {% endfor %}
+            </div>
+            {# Building the image url using |add: filter: #}
+            {% with "web_core/images/"|add:card.card_image as main_card_img %}
+            <img class="card-img-top" src="{% static main_card_img %}" alt="">
+            {% endwith %}
+            <div class="card-body">
+              <h3 class=card-title>{{ card.card_title }}</h3>
+              <hr style="border-color: black;">
+              <p class="card-text text-justify">{{card.card_description}}</p>
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              {# Building both button icon image urls using |add: filter: #}
+              {% with "web_core/images/icons/"|add:card.button_a_icon as button_a_icon_url %}
+              <a class="btn btn-info btn-outline-dark" href="{{ card.button_a_href }}">
+                {{ card.button_a_text }} <img id='card_icon' src="{% static button_a_icon_url %}" alt="">
+              </a>
+              {% endwith %}
+              {% with "web_core/images/icons/"|add:card.button_b_icon as button_b_icon_url %}
+              <a class="btn btn-info btn-outline-dark" href="{{ card.button_b_href }}">
+                {{ card.button_b_text }} <img id='card_icon' src="{% static button_b_icon_url %}" alt="">
+              </a>
+              {% endwith %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+
+      {% endfor %}
+
+    </div>
 
     <h1>Finance Applications</h1>
     <hr style="border-color: #FFFFFF;">

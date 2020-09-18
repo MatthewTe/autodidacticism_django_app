@@ -8,7 +8,7 @@ from markdownx.models import MarkdownxField
 # Importing 3-rd Party Packages:
 from markdownify import markdownify
 import markdown
-
+from datetime import date
 
 class Resources_Index_Card(models.Model):
     """The Django Database model for educational resources Bootstrap cards.
@@ -112,12 +112,6 @@ class Resources_Index_Card(models.Model):
     class Meta:
         # Plural Name in the Admin dashboard:
         verbose_name_plural = "Resources Index Cards"
-
-    def generate_article_index_href(self):
-        """The method manipulates the card_category model field to generate an
-        the href
-        """
-        pass
 
     # __dunder methods:
     def __str__(self):
@@ -293,5 +287,155 @@ class Article(models.Model):
         return markdown.markdown(self.content[:300] + ".....")
 
     # __Dunder methods:
+    def __str__(self):
+        return self.title
+
+class CatalogueElement(models.Model):
+    """The data model that represents an educational catalogue element.
+
+    An instance of the CatalogueElement represents an element that can be searched
+    for and displayed on the catalogue index page. It assumes that an element
+    contains an associated pdf file that will be dispalyed using some form of
+    in browser pdf rendering service such as PDF.js. This is the model data that
+    will be queried to generate catalogue index cards in the template. Each template
+    index card contains:
+
+    * A Title
+    * A "thumbnail" image
+    * A small text description of the element.
+    * A link to the associated pdf (through a filefield)
+    * Text displaying the author or source of the element.
+
+
+    Attributes:
+
+        title (models.CharField): The title text string of the element card.
+
+        card_image (models.CharField): A string pointing to the relative href of the
+            static image. This image serves as the 'thumbnail' for the element card.
+
+        description (models.TextField): A blob of text that is displayed as the
+            description of an element index card.
+
+        file (models.FileField): The django database model object that deals with
+            handeling files and file storage. It is used to store information
+            regarding the pdf file associated with the element card.
+
+        source (models.CharField): A string representing the source or author of
+            the information being displayed on the element card.
+
+        category (models.ForeignKey): A ForeignKey connecting an instance of this
+            db model to an instance of the Resources_Index_Card model. The instance
+            of Resources_Index_Card determines the category the element card is
+            in. This ForeignKey connection is used for category searching purposes.
+
+        slug (models.SlugField): A slug that is used to create a unique slug ID
+            for each individual element. The slug is generated from text content
+            extracted from the title, source.
+
+    """
+    # Declaring Displayed Category Element Fields:
+    title = models.CharField(
+        max_length = 100,
+        verbose_name = "Element Title",
+        help_text = "The title of the catalogue element. Will be displayed as the title of the element index card.")
+
+    card_image = models.CharField(
+        max_length = 100,
+        verbose_name = "Card Image Thumbnail",
+        help_text = "The name of the image file that is contained in a static directory that will be used as an index card thumbnail")
+
+    description = models.TextField(
+        verbose_name = "Element Description",
+        help_text = "The Description of the catalogue element. The field will be displayed as the main text block in an element index card.")
+
+    source = models.CharField(
+        max_length = 255,
+        verbose_name = "Source",
+        help_text = "Either an author name, or a direct formal citation for the content represented by the model instance.")
+
+    category = models.ForeignKey(
+        Resources_Index_Card,
+        on_delete = models.CASCADE,
+        verbose_name = "Element Category",
+        help_text = "This is a Foregin Key that connects to a Resource Index Card Instance that is used to sort into a category.")
+
+    slug = models.SlugField(
+        max_length = 200,
+        unique = True,
+        blank = True)
+
+    def build_pdf_file_path(instance, filename):
+        """The method generates a file path string representing the name of an
+        uploaded file via the db model 'file' field.
+
+        This method is used as the callable method for the 'file' field in the
+        CatalogueElement db model and generates the name of an uploaded file. The
+        filepath for the uploaded file is built in the following format using
+        f-strings:
+
+        resources_catalogue/{category}/{date_of_upload}/{filename}
+
+        Where the date_of_upload is generated locally by the datetime library.
+
+        Args:
+            instance (CatalogueElement): An instance of the model where the FileField
+                has been defined.
+
+            filename (str): The string representing the filename that was automatically
+                given to the file by the default implementation.
+
+        Returns:
+            str: The uploaded file string built using f-strings.
+
+        """
+        # Creating the current uploaded date via datetime:
+        today = date.today().strftime("%d_%m_%Y")
+
+        # Building the file path string:
+        filepath = f"resources_catalogue/{instance.category}/{today}/{filename}"
+
+        return filepath
+
+    # Model FileField defined after build_pdf_file_path() method for uploat_to var:
+    file = models.FileField(
+        upload_to = build_pdf_file_path,
+        verbose_name = "PDF File",
+        help_text = "This is the pdf file connected to an element index card. This is the pdf that is displayed by an imbeded js renderer.")
+
+    def save(self, *args, **kwargs):
+        """
+        Method overwrites the default Model save method in order to generate a
+        slug value.
+
+        This method is called ever time a new CatalogueElement instance is saved, it
+        takes in the title field for said instance and slugifys it, and saves
+        the resulting output in the slug field. This means that a slug field is
+        auto-generated every time a CatalogueElement instance is created.
+
+        Reference:
+            * https://books.agiliq.com/projects/django-orm-cookbook/en/latest/slugfield.html
+
+        Args:
+            *args (*args): Boilerplate arguments for the default 'save' method.
+
+            **kwargs (*kwargs): Boilerplate kew-word arguments for the default
+                'save' method.
+        """
+        # Concatinating strings together to be slugified:
+        slug_str = self.title + self.source
+
+        # Setting the slug value based on the title field:
+        self.slug = slugify(slug_str)
+
+        super(CatalogueElement, self).save(*args, **kwargs)
+
+
+    # Changing Model Metadata:
+    class Meta:
+        # Plural Name in the Admin dashboard:
+        verbose_name_plural = "Catalogue Elements"
+
+    # Dunder Methods:
     def __str__(self):
         return self.title
